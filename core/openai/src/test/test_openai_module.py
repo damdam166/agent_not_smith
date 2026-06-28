@@ -31,7 +31,7 @@ class TestOpenaiModule:
         importlib.reload(module)
         from core.model.src.main.agent import Agent
 
-        assert isinstance(module.OpenAIAgentInstance, Agent)
+        assert isinstance(module.openAIAgentInstance, Agent)
 
     def test_openai_agent_instance_delegates_model(self) -> None:
         config = importlib.import_module("core.config.src.main.config")
@@ -39,4 +39,4 @@ class TestOpenaiModule:
         module = importlib.import_module("core.openai.src.main.di.openai_module")
         importlib.reload(module)
 
-        assert module.OpenAIAgentInstance.get_model() == "di/model:free"
+        assert module.openAIAgentInstance.get_model() == "di/model:free"

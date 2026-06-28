@@ -41,12 +41,12 @@ Loads `.env` via `python-dotenv` once at import time. Exports typed constants (`
 ### 3. Agent Layer (`core/openai/src/main/`)
 
 - **`agent.py`** — `OpenAIAgent(Agent)` concrete implementation. Uses the OpenAI SDK pointed at OpenRouter's base URL. Sends a system prompt + user message, returns the completion.
-- **`di/openai_module.py`** — Wires a `Provider` from config, instantiates `OpenAIAgent`, exports `OpenAIAgentInstance` as a singleton.
+- **`di/openai_module.py`** — Wires a `Provider` from config, instantiates `OpenAIAgent`, exports `openAIAgentInstance` as a singleton.
 
 ### 4. Repository Layer (`core/data/src/main/`)
 
 - **`openai_agent_repository.py`** — `OpenAIAgentRepository` wraps any `Agent`-compatible object behind a simple interface (`summarize_file`, `get_model`).
-- **`di/data_module.py`** — Exports `openai_agent_repository_instance` singleton.
+- **`di/data_module.py`** — Exports `OpenAIAgentRepositoryInstance` singleton.
 
 ### 5. App Layer (`app/src/main/main.py`)
 

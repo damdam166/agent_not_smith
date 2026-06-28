@@ -3,7 +3,7 @@
 from pathlib import Path
 
 from core.model.src.main.agent import Agent
-from core.openai.src.main.di.openai_module import OpenAIAgentInstance
+from core.openai.src.main.di.openai_module import openAIAgentInstance
 
 
 class OpenAIAgentRepository:
@@ -14,7 +14,7 @@ class OpenAIAgentRepository:
             configured ``OpenAIAgent`` singleton from the DI module.
     """
 
-    def __init__(self, agent: Agent = OpenAIAgentInstance) -> None:
+    def __init__(self, agent: Agent = openAIAgentInstance) -> None:
         self._agent = agent
 
     def summarize_file(self, filepath: Path) -> str:

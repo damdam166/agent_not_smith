@@ -35,9 +35,9 @@ agent/
 ```
 app/src/main/main.py
     ↓  (imports singleton)
-core/data/src/main/di/data_module.py       openai_agent_repository_instance
+core/data/src/main/di/data_module.py       OpenAIAgentRepositoryInstance
     ↓  (imports singleton)
-core/openai/src/main/di/openai_module.py   OpenAIAgentInstance
+core/openai/src/main/di/openai_module.py   openAIAgentInstance
     ↓  (reads config)
 core/config/src/main/config.py              OPENROUTER_APIKEY, OPENAI_SDK_SYSTEM_PROMPT...
     ↓  (builds)

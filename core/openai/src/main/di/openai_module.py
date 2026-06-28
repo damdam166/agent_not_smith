@@ -19,4 +19,4 @@ provider = Provider(
     system_prompt=OPENAI_SDK_SYSTEM_PROMPT,
 )
 
-OpenAIAgentInstance: Agent = OpenAIAgent(provider)
+openAIAgentInstance: Agent = OpenAIAgent(provider)  # noqa: N816

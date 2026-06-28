@@ -40,7 +40,7 @@ class TestDataModule:
         )
 
         assert isinstance(
-            data_module.openai_agent_repository_instance,
+            data_module.OpenAIAgentRepositoryInstance,
             OpenAIAgentRepository,
         )
 
@@ -48,6 +48,5 @@ class TestDataModule:
         data_module = _fresh_import("core.data.src.main.di.data_module")
 
         assert (
-            data_module.openai_agent_repository_instance.get_model()
-            == "data/model:free"
+            data_module.OpenAIAgentRepositoryInstance.get_model() == "data/model:free"
         )

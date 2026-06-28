@@ -1,11 +1,11 @@
-"""Data classes that describe how an agent should be configured."""
+"""Data classes that describe how an agent provider should be configured."""
 
 from dataclasses import dataclass
 
 
 @dataclass
 class Provider:
-    """Aggregates all parameters required to configure an LLM agent.
+    """Aggregates all parameters required to configure an LLM agent provider.
 
     Attributes:
         api_key: Authentication token for the LLM provider.

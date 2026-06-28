@@ -2,7 +2,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from core.data.src.main.di.data_module import openai_agent_repository_instance
+from core.data.src.main.di.data_module import OpenAIAgentRepositoryInstance
 
 
 def main() -> None:
@@ -14,7 +14,7 @@ def main() -> None:
         print(f"Error: file not found: {args.filepath}", file=sys.stderr)
         sys.exit(1)
 
-    summary = openai_agent_repository_instance.summarize_file(args.filepath)
+    summary = OpenAIAgentRepositoryInstance.summarize_file(args.filepath)
     print(summary)
 
 
