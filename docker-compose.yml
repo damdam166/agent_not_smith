@@ -1,0 +1,37 @@
+services:
+  proxy:
+    build: proxy
+    container_name: agent-proxy
+    dns: 1.1.1.1 # Could not resolve openrouter.ai with podman
+    volumes:
+      - ./proxy/tinyproxy.conf:/etc/tinyproxy/tinyproxy.conf:ro
+      - ./proxy/filter:/etc/tinyproxy/filter:ro
+    networks:
+      - agent-net
+    restart: unless-stopped
+
+  agent:
+    build: .
+    container_name: agent
+    # dns: 1.1.1.1 # Could not resolve openrouter.ai with podman
+    networks:
+      - agent-net
+    depends_on:
+      - proxy
+    environment:
+      - HTTP_PROXY=http://proxy:3128
+      - HTTPS_PROXY=http://proxy:3128
+      - NO_PROXY=localhost,127.0.0.1
+      - OPENROUTER_APIKEY=${OPENROUTER_APIKEY:?err}
+      - OPENROUTER_MODEL=${OPENROUTER_MODEL:-cohere/north-mini-code:free}
+      - OPENROUTER_BASE_URL=${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
+      - OPENROUTER_MAX_TOKENS=${OPENROUTER_MAX_TOKENS:-4096}
+      - OPENROUTER_TEMPERATURE=${OPENROUTER_TEMPERATURE:-0.0}
+      - OPENAI_SDK_SYSTEM_PROMPT=${OPENAI_SDK_SYSTEM_PROMPT:-You are a helpful assistant.}
+    volumes:
+      - ./input:/input:ro
+    entrypoint: ["python", "-m", "app.src.main.main"]
+
+networks:
+  agent-net:
+    driver: bridge

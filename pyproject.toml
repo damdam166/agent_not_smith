@@ -1,0 +1,54 @@
+[project]
+name = "agent"
+version = "0.1.0"
+description = "Dummy agent that reads file and summarize it"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "openai>=2.44.0",
+    "python-dotenv>=1.0.0",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["core*", "app*"]
+
+[project.scripts]
+agent = "app.src.main.main:main"
+
+[dependency-groups]
+dev = [
+    "black>=26.5.1",
+    "mypy>=2.1.0",
+    "pytest>=8.0.0",
+    "ruff>=0.15.20",
+]
+
+[tool.black]
+target-version = ["py314"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "core/config/src/test",
+    "core/model/src/test",
+    "core/openai/src/test",
+    "core/data/src/test",
+    "app/src/test",
+]
+pythonpath = ["."]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+ignore_missing_imports = true
+
