@@ -1,27 +1,24 @@
 services:
-  proxy:
-    build: proxy
+  agent-proxy:
+    image: ubuntu/squid:latest
     container_name: agent-proxy
-    dns: 1.1.1.1 # Could not resolve openrouter.ai with podman
     volumes:
-      - ./proxy/tinyproxy.conf:/etc/tinyproxy/tinyproxy.conf:ro
-      - ./proxy/filter:/etc/tinyproxy/filter:ro
+      - ./proxy/squid.conf:/etc/squid/squid.conf:ro
     networks:
+      - proxy-net
       - agent-net
     restart: unless-stopped
 
   agent:
     build: .
     container_name: agent
-    # dns: 1.1.1.1 # Could not resolve openrouter.ai with podman
     networks:
       - agent-net
     depends_on:
-      - proxy
+      - agent-proxy
     environment:
-      - HTTP_PROXY=http://proxy:3128
-      - HTTPS_PROXY=http://proxy:3128
-      - NO_PROXY=localhost,127.0.0.1
+      - HTTP_PROXY=http://agent-proxy:3128
+      - HTTPS_PROXY=http://agent-proxy:3128
       - OPENROUTER_APIKEY=${OPENROUTER_APIKEY:?err}
       - OPENROUTER_MODEL=${OPENROUTER_MODEL:-cohere/north-mini-code:free}
       - OPENROUTER_BASE_URL=${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
@@ -34,4 +31,7 @@ services:
 
 networks:
   agent-net:
+    internal: true
+  proxy-net:
     driver: bridge
+

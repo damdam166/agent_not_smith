@@ -35,7 +35,7 @@ uv run agent path/to/file.txt
 
 ## Docker
 
-The agent routes all traffic through a **Tinyproxy** container that only allows outbound connections to `openrouter.ai:443`. All other destinations are blocked at the proxy level.
+The agent routes all traffic through a **squid** container that only allows outbound connections to `openrouter.ai:443`. All other destinations are blocked at the proxy level.
 
 ```bash
 # Create an input directory with the file to summarise
